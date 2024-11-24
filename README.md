@@ -5,9 +5,9 @@ The gameplay revolves around collecting baits, using portals, and managing healt
 **Playable Game: https://enesevki.itch.io/eat-more**
 
 ## How to Play
-Move: Use WASD or Arrow Keys to navigate.
-Dash: Press Left Shift to quickly evade or reposition.
-Interact: Collect baits and use portals to survive and maximize your score.
+1. Move: Use WASD or Arrow Keys to navigate.
+2. Dash: Press Left Shift to quickly evade or reposition.
+3. Interact: Collect baits and use portals to survive and maximize your score.
 
 ## Gameplay Overview
 1. Objective: Survive as long as possible by collecting beneficial baits, avoiding harmful ones, and using portals strategically.
@@ -42,8 +42,9 @@ Interact: Collect baits and use portals to survive and maximize your score.
   1. Health Bar healthBar.cs
   2. Score Score.cs
 9. Wall interactions using Raycast
-  1. Player Player.cs: 101-117
-  2. Bait Bait.cs: 64-80
+   1. Player Player.cs: 101-117
+   2. Bait Bait.cs: 64-80
+   
 
 
 ## References
