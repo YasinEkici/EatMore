@@ -28,7 +28,7 @@ Interact: Collect baits and use portals to survive and maximize your score.
 6. Player-Bait Collision Handling Bait.cs 100-134
 7. Bait movement Bait.cs 83-97
 8. Score tracking Bait.cs 37-40
-9. Adjusting bait positions upon spawning 110-122
+9. Adjusting bait positions upon spawning SpawnManager.cs: 110-122
 
 ### Enes Şevki Dönmez - 21360859079
 1. Player movement Player.cs: 67-98
