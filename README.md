@@ -39,8 +39,8 @@ The gameplay revolves around collecting baits, using portals, and managing healt
 6. Destroying portals Portal.cs: 27-37
 7. Player-Portal Collision Handling, Teleporting Player: Portal.cs 14-31
 8. Health Bar and Score UI
-  1. Health Bar healthBar.cs
-  2. Score Score.cs
+   1. Health Bar healthBar.cs
+   2. Score Score.cs
 9. Wall interactions using Raycast
    1. Player Player.cs: 101-117
    2. Bait Bait.cs: 64-80
