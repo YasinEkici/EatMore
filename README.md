@@ -13,31 +13,38 @@ Interact: Collect baits and use portals to survive and maximize your score.
 1. Objective: Survive as long as possible by collecting beneficial baits, avoiding harmful ones, and using portals strategically.
 2. Health Mechanics: Your health decreases over time. Collect health baits to recover and avoid harmful baits that drain your health further.
 3. Portals: Teleport across the map to escape tricky situations and reposition strategically.
+4. Different Baits: The different baits have different effects on player:
+   1. The Yellow Bait: Called "GoodBait". Heals the Player upon collecting.
+   2. The Red Bait: Called "BadBait". Damages the Player upon collecting.
+   3. The Purple Bait: Called "SpeedBait". Gives movement speed for a time upon collecting.
 
 ## Aksiyon Listesi
 ### Yasin Ekici - 21360859029
-1. Bait Spawnlanması
-2. Bait Destroylanması
-3. Bait ile etkileşimde oyuncunun canını artırmak
-4. Bait ile etkileşimde oyuncunun canını azaltmak
-5. Bait ile etkileşimde oyuncunun hızını artırmak
-6. Player-Bait Collision İşlemleri
-7. Bait Movemet
-8. Score'un tutulması
-9. Bait Pozisyon ayarlaması
-### Enes Şevki Dönmez
-1. Player movement
-2. Player Dash
-3. Player'ın yok olması
-4. Player'ın canının zamanla azalması
-5. Portal spawnlanması
-6. Portal destroylanması
-7. Player-Portal Collision İşlemleri
-8. Health Bar, Score UI
-  1. Health Bar
-  2. Score
-8. Raycast ile Player-Wall etkileşimi
+1. Spawning baits Spawn_Manager: 50-71
+2. Destroying baits: Bait.cs 140-148
+3. Increasing player's health upon bait interaction Player.cs: 128-134
+4. Decreasing player's health upon bait interaction Player.cs: 137-144
+5. Increasing player's speed upon bait interaction Player.cs 147-166
+6. Player-Bait Collision Handling Bait.cs 100-134
+7. Bait movement Bait.cs 83-97
+8. Score tracking Bait.cs 37-40
+9. Adjusting bait positions upon spawning 110-122
+
+### Enes Şevki Dönmez - 21360859079
+1. Player movement Player.cs: 67-98
+2. Player Dash Player.cs 36-62
+3. Destroying Player Player.cs: 170-178
+4. Player's health decreasing over time Player.cs: 119-126
+5. Spawning portals Spawn_Manager: 74-107
+6. Destroying portals Portal.cs: 27-37
+7. Player-Portal Collision Handling, Teleporting Player: Portal.cs 14-31
+8. Health Bar and Score UI
+  1. Health Bar healthBar.cs
+  2. Score Score.cs
+9. Wall interactions using Raycast
+  1. Player Player.cs: 101-117
+  2. Bait Bait.cs: 64-80
 
 
 ## References
-Unity Asset Store: Used for environmental models and textures.
+Hearth asset: https://assetstore.unity.com/packages/2d/gui/icons/heart-in-pixel-287862
