@@ -31,7 +31,7 @@ The gameplay revolves around collecting baits, using portals, and managing healt
 9. Adjusting bait positions upon spawning SpawnManager.cs: 110-122
 
 ### Enes Şevki Dönmez - 21360859079
-1. Player movement Player.cs: 67-98
+1. Player movement Player.cs: 66-98
 2. Player Dash Player.cs 36-62
 3. Destroying Player Player.cs: 170-178
 4. Player's health decreasing over time Player.cs: 119-126
