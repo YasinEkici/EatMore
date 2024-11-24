@@ -48,4 +48,4 @@ The gameplay revolves around collecting baits, using portals, and managing healt
 
 
 ## References
-Hearth asset: https://assetstore.unity.com/packages/2d/gui/icons/heart-in-pixel-287862
+Heart asset: https://assetstore.unity.com/packages/2d/gui/icons/heart-in-pixel-287862
