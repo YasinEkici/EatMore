@@ -17,7 +17,7 @@ The gameplay revolves around managing health, using portals and surviving all in
    1. Cherries: Heals the Player upon collecting.
    2. Vultures: Damages the Player upon inteacting.
    3. Speed Gems: Provides movement speed for a time upon collecting.
-5. After getting score up to 10, game transfers player into second level and continues.
+5. Asynchronization: After getting score up to 10, game transfers player into second level and continues. (For playtesting, you can press "F" to switch from scene 1 to scene 2)
 
 ## Task Distribution
 ### Enes Şevki Dönmez - 21360859079
