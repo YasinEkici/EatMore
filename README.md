@@ -3,6 +3,7 @@
 The gameplay revolves around managing health, using portals and surviving all in a fast-paced, WebGL application.
 
 **Playable Game: https://enesevki.itch.io/eat-more**
+**We recommend playing the game in full screen for a better experience.**
 
 ## How to Play
 1. Move: Use WASD or Arrow Keys to navigate.
