@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Bait : MonoBehaviour
 {
+    public AudioSource baitSource;
+    [SerializeField] private AudioClip goodBaitClip;
+    [SerializeField] private AudioClip badBaitClip;
+    [SerializeField] private AudioClip speedBaitClip;
     // Speed of the bait movement
     [SerializeField] private float moveSpeed = 1f;
 
@@ -28,27 +33,34 @@ public class Bait : MonoBehaviour
     // Identifier for bait type (0: health, 1: damage, 2: speed boost)
     [SerializeField] int baitID;
 
+    
+
     // Reference to the player's transform
     private Transform playerTransform;
+
+    asynchronousLoadingManager asynchronousLoadingManager;
 
     GameObject player;
     Vector3 move;
     // Returns the current score
-    public int getScore()
-    {
-        return score;
-    }
-
+    private bool isSecondLoaded = false;
+    
     void Start()
     {
+        asynchronousLoadingManager = FindAnyObjectByType<asynchronousLoadingManager>();
         // Start the coroutine to destroy the bait after a delay
         StartCoroutine(DestroyBait());
-
+       
         // Find the player object and set its transform reference
         player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
             playerTransform = player.transform;
+        }
+
+        baitSource = GetComponent<AudioSource>(); 
+        if(baitSource ==null){
+            Debug.LogError("Audio Source boş");
         }
     }
 
@@ -59,8 +71,22 @@ public class Bait : MonoBehaviour
         {
             Movement();
         }
+
+        if (Input.GetKeyDown(KeyCode.F) && !isSecondLoaded )
+        {
+            asynchronousLoadingManager.LoadGame(2);
+            isSecondLoaded = true;
+        }
         
     }
+
+    public int getScore()
+    {
+        return score;
+    }
+
+
+   
     private bool IsWallInFront(Vector3 move)
     {
         float rayDistance = 1f; // Raycast distance
@@ -92,7 +118,16 @@ public class Bait : MonoBehaviour
         {
             Vector3 directionTowards = (playerTransform.position - transform.position).normalized;
             move = directionTowards;
+            
             transform.position += directionTowards * moveSpeed * Time.deltaTime * 3f;
+            if (directionTowards.x < 0)
+            {
+            transform.rotation = Quaternion.Euler(180, 180, 0);
+            }   
+            else 
+            {
+            transform.rotation = Quaternion.Euler(0, 0, 0);    
+            }     
         }
     }
 
@@ -102,6 +137,7 @@ public class Bait : MonoBehaviour
         if (other.tag == "Player") // Check if the collider belongs to the player
         {
             HandlePlayerCollision(other);
+            
         }
     }
     
@@ -116,21 +152,29 @@ public class Bait : MonoBehaviour
         {
         case 0: // Health increase
         player.baitHeal(healthUp);
+        SoundManager.instance.PlaySound(goodBaitClip);
+
         score++;
+        if (score == 10)
+        {
+            asynchronousLoadingManager.LoadGame(2);  // load second scene acyns
+        }
         break;
 
         case 1: // Health decrease
         player.baitDamage(healthDown);
+        SoundManager.instance.PlaySound(badBaitClip);
         break;
 
         case 2: // Speed boost
         player.ActivateSpeedBoost(speedModifier, speedDuration);
+        SoundManager.instance.PlaySound(speedBaitClip);
         break;
-                }
-            }
+        }
+        }
 
             // Destroy the bait after collision
-            Destroy(this.gameObject);
+            Destroy(this.gameObject, 0.2f);
     }
 
 

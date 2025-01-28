@@ -17,7 +17,7 @@ public class Spawn_Manager : MonoBehaviour
     [SerializeField] private float minDistanceBetweenPortals = 10.0f;
 
     // Lifetime of portals before they are destroyed
-    [SerializeField] private float portalLifetime = 10.0f;
+    [SerializeField] private float portalLifetime = 10.20f;
 
     // Container object to organize spawned portals
     [SerializeField] GameObject portalContainer;
@@ -33,10 +33,17 @@ public class Spawn_Manager : MonoBehaviour
 
     // Flag to control the spawning process
     bool stopSpawning = false;
+    public AudioSource Spawn_Manager_Source;
+    [SerializeField] private AudioClip baitSpawningclip;
+    [SerializeField] private AudioClip portalSpawningclip;
 
     void Start()
     {
         // Start spawning bait and portals
+        Spawn_Manager_Source = GetComponent<AudioSource>();
+        if(Spawn_Manager_Source ==null){
+            Debug.LogError("Audio Source boş");
+        }
         StartCoroutine(SpawnBaits());
         StartCoroutine(SpawnPortals());
     }
@@ -45,14 +52,30 @@ public class Spawn_Manager : MonoBehaviour
     {
         // Currently no functionality needed in Update
     }
+        private void OnEnable()
+    {
+        Spawn_Manager_Source.volume = PlayerPrefs.GetFloat("soundVolume", 0.5f);
+        // EVENT'E ABONE OLUYORUZ
+        SoundManager.OnSoundVolumeChanged += HandleOnSoundVolumeChanged;
+    }
 
+    private void OnDisable()
+    {
+        // EVENT'DEN ÇIKIYORUZ (Memory leak veya null ref engellemek için)
+        SoundManager.OnSoundVolumeChanged -= HandleOnSoundVolumeChanged;
+    }
+        private void HandleOnSoundVolumeChanged(float newVolume)
+    {
+        // SoundManager'dan gelen yeni volume değeri, bu nesnenin AudioSource'u güncellesin
+        Spawn_Manager_Source.volume = newVolume;
+    }
     // Coroutine to spawn bait at regular intervals
     IEnumerator SpawnBaits()
     {
         while (!stopSpawning)
         {
             // Generate a random position within the defined bounds
-            Vector3 spawnPosition = new Vector3(Random.Range(-34.4f, 34.4f), 0, Random.Range(-19.3f, 19.3f));
+            Vector3 spawnPosition = new Vector3(Random.Range(-34.4f, 34.4f), 1, Random.Range(-19.3f, 19.3f));
 
             // Check if the position is valid
             bool isPositionValid = IsBaitSpawnPositionValid(spawnPosition, 2.0f);
@@ -64,6 +87,10 @@ public class Spawn_Manager : MonoBehaviour
             if (isPositionValid)
             {
                 GameObject newBait = Instantiate(Baits[idMaker], spawnPosition, Quaternion.identity);
+                if (idMaker == 0){
+                Spawn_Manager_Source.clip = baitSpawningclip;
+                Spawn_Manager_Source.Play();
+                }
                 newBait.transform.parent = baitContainer.transform; // Parent the bait to the bait container
                 yield return new WaitForSeconds(spawnBaitWaitTime); // Wait for the defined time before spawning the next bait
             }
@@ -87,6 +114,8 @@ public class Spawn_Manager : MonoBehaviour
 
             // Spawn entry and exit portals
             GameObject entryPortal = Instantiate(portalPrefab, entrySpawnPosition, Quaternion.identity);
+            Spawn_Manager_Source.clip = portalSpawningclip;
+            Spawn_Manager_Source.Play();
             entryPortal.transform.parent = portalContainer.transform; // Parent the portal to the portal container
             GameObject exitPortal = Instantiate(exitPortalPrefab, exitSpawnPosition, Quaternion.identity);
             exitPortal.transform.parent = portalContainer.transform;

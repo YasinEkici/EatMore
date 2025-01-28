@@ -1,25 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 10f;
+    public Animator animator;
     private bool isSpeedBoostActive = false;    
-    [SerializeField] int dashDistance = 25;
+    [SerializeField] float dashDistance = 25;
     [SerializeField] float dashCooldown = 5f; // dash cooldown
     [SerializeField] float dashDuration = 0.2f; // Dash time
     [SerializeField] float healthMax = 100;
     [SerializeField] float healthDecreaseWaitTime = 0.5f; // Longer wait time means slower decrease speed
     [SerializeField] Rigidbody playerRigidbody;
+    private UIManager uiManager;
 
     public float currentHealth;
     private float originalSpeed;
     private bool isDashing = false; // Dash controller
     private bool dashCooldownActive = false; // Dash waiting control
+    private float movementMagnitude;
 
     private void Start()
     {
+        uiManager = FindAnyObjectByType<UIManager>();
+
         currentHealth = healthMax;
 
         originalSpeed = moveSpeed; 
@@ -29,13 +36,15 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        
         CalculateMovement();
         PlayerDeath();
+        animator.SetFloat("Speed", moveSpeed);
     }
 
     private void AttemptDash(Vector3 move)
     {
-        if (!isDashing && !dashCooldownActive && move != Vector3.zero != IsWallInFront(move))
+        if (!isDashing && !dashCooldownActive && move != Vector3.zero != IsWallInFront(move, dashDistance/4))
         {
             StartCoroutine(Dash(move));
         }
@@ -69,7 +78,9 @@ public class Player : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
         Vector3 move = new Vector3(horizontalInput, 0, verticalInput).normalized;
-
+        Vector3 movedirection = new Vector3(horizontalInput, 0, verticalInput);
+        float movementMagnitude = movedirection.magnitude;
+        animator.SetFloat("Key", movementMagnitude);
         if (Input.GetKeyDown(KeyCode.LeftShift)) // Kullan�c� dash yapmak isterse
         {
             AttemptDash(move);
@@ -80,15 +91,25 @@ public class Player : MonoBehaviour
         {
             Move(move);
         }
+
+        if (horizontalInput < 0)
+        {
+        transform.rotation = Quaternion.Euler(180, 180, 0);
+        }
+        else if (horizontalInput > 0)
+        {
+
+        transform.rotation = Quaternion.Euler(0, 0, 0);
+        } 
     }
 
     private void Move(Vector3 move)
     {
         
-        if (!isDashing && !IsWallInFront(move))
+        if (!isDashing && !IsWallInFront(move,1))
         {
             Vector3 targetVelocity = move * moveSpeed;
-            playerRigidbody.velocity = new Vector3(targetVelocity.x, playerRigidbody.velocity.y, targetVelocity.z);
+            playerRigidbody.velocity = new Vector3(targetVelocity.x, playerRigidbody.velocity.y, targetVelocity.z );
         }
         else
         {
@@ -98,16 +119,22 @@ public class Player : MonoBehaviour
     }
 
 
-    private bool IsWallInFront(Vector3 move)
+    private bool IsWallInFront(Vector3 move, float distance)
     {
-        float rayDistance = 1f; // Raycast distance
-        Vector3 rayOrigin = transform.position; // Ray start
-        Vector3 rayDirection = move.normalized; ; // Ray direction
+        Vector3 rayOrigin = transform.position; // Ray'in başlangıç noktası
+        Vector3 rayDirection = move.normalized; // Ray'in yönü (normalize edilmiş)
 
+        // Varsayılan olarak tam uzunlukta bir kırmızı ray çiz (duvara çarpmazsa)
+        Debug.DrawLine(rayOrigin, rayOrigin + rayDirection * distance, Color.red);
 
-        if (Physics.Raycast(rayOrigin, rayDirection, out RaycastHit hit, rayDistance))
+        // Raycast işlemi
+        if (Physics.Raycast(rayOrigin, rayDirection, out RaycastHit hit, distance))
         {
-            if (hit.collider.CompareTag("Wall")) // if ray hits wall
+            // Çarpma varsa ray'i çarpma noktasına kadar yeşil çiz
+            Debug.DrawLine(rayOrigin, hit.point, Color.green);
+
+            // Eğer çarpılan obje "Wall" etiketi taşıyorsa
+            if (hit.collider.CompareTag("Wall"))
             {
                 return true;
             }
@@ -141,6 +168,11 @@ public void baitDamage(float healthValue)
     {
         currentHealth -= healthValue; // Decrease currentHealth by healthValue
     }
+
+    if (currentHealth > 0)
+    {
+        animator.SetTrigger("Hurt");
+    }
 }
 
 // Activates a temporary speed boost for the player
@@ -172,6 +204,7 @@ private IEnumerator SpeedBoostCoroutine(float speedModifier, float speedDuration
         if (currentHealth <= 0)
         {
             FindObjectOfType<Spawn_Manager>().StopSpawning();
+            uiManager.GameOver();
             Destroy(gameObject);
         }
     }
