@@ -1,6 +1,6 @@
 # EatMore!
 **EatMore!** is a survival game where players must strategically interact with their environment to stay alive. 
-The gameplay revolves around collecting baits, using portals, and managing health, all in a fast-paced, WebGL application.
+The gameplay revolves around managing health, using portals and surviving all in a fast-paced, WebGL application.
 
 **Playable Game: https://enesevki.itch.io/eat-more**
 
@@ -10,14 +10,14 @@ The gameplay revolves around collecting baits, using portals, and managing healt
 3. Interact: Collect cherries, speed gems, avoid vultures and use portals to survive and maximize your score.
 
 ## Gameplay Overview
-1. Objective: Survive as long as possible by collecting beneficial baits, avoiding harmful ones, and using portals strategically.
-2. Health Mechanics: Your health decreases over time. Collect health baits to recover and avoid vultures that drain your health further.
+1. Objective: Survive as long as possible by collecting cherries, avoiding vultures, and using portals strategically.
+2. Health Mechanics: Your health decreases over time and vulture attacks drains it further. Collect health baits to recover. 
 3. Portals: Teleport across the map to escape tricky situations and reposition strategically.
-4. Different Objects: The different collectibles have different effects on player:
-   1. Cherris: Heals the Player upon collecting.
-   2. Vultures: Damages the Player upon direct hit.
-   3. Speed Gems: Gives movement speed for a time upon collecting.
-5. After getting score up to 10, game transfers player into second level and continues  
+4. Different Objects: The different objects have different effects on player:
+   1. Cherries: Heals the Player upon collecting.
+   2. Vultures: Damages the Player upon inteacting.
+   3. Speed Gems: Provides movement speed for a time upon collecting.
+5. After getting score up to 10, game transfers player into second level and continues.
 
 ## Task Distribution
 ### Enes Şevki Dönmez - 21360859079
