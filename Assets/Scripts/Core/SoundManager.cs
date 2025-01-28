@@ -63,7 +63,7 @@ public class SoundManager : MonoBehaviour
 
     // Event'i tetikle
         OnSoundVolumeChanged?.Invoke(source.volume);
-        Debug.Log($"Ses seviyesi güncellendi set sound: {source.volume}");
+        
         
     }
     public void ChangeMusicVolume(float _change)

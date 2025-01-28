@@ -6,6 +6,7 @@ public class MenuManager : MonoBehaviour
 {
     [SerializeField] private RectTransform arrow;
     [SerializeField] private RectTransform[] buttons;
+    [SerializeField] private RectTransform[] arrowPositions;
     [SerializeField] private AudioClip changeSound;
     [SerializeField] private AudioClip interactSound;
     [SerializeField] private GameObject optionsScreen;
@@ -17,6 +18,7 @@ public class MenuManager : MonoBehaviour
     {
         ChangePosition(0);
     }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.W))
@@ -45,7 +47,7 @@ public class MenuManager : MonoBehaviour
     }
     private void AssignPosition(int position)
     {
-            arrow.position = new Vector3(buttons[position].position.x -180, buttons[position].position.y + 30, 0);
+            arrow.position = new Vector3(arrowPositions[position].position.x , arrowPositions[position].position.y , 0);
     }
     private void Interact()
     {

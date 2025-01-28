@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class SelectionArrow : MonoBehaviour
 {
     [SerializeField] private RectTransform[] options;
+    [SerializeField] private RectTransform[] arrowPositions;
     [SerializeField] private AudioClip changeSound;
     [SerializeField] private AudioClip interactSound;
     private RectTransform rect;
@@ -11,7 +12,7 @@ public class SelectionArrow : MonoBehaviour
 
     private void Start()
     {
-        rect.position = new Vector3(options[currentPosition].position.x - 280, options[currentPosition].position.y + 30, 0);
+        rect.position = new Vector3(arrowPositions[currentPosition].position.x, arrowPositions[currentPosition].position.y, 0);
     }
     private void Awake()
     {
@@ -40,22 +41,17 @@ public class SelectionArrow : MonoBehaviour
     {
         currentPosition += _change;
 
-        if(_change != 0)
+        if (_change != 0)
         {
             SoundManager.instance.PlaySound(changeSound);
         }
 
         if (currentPosition < 0)
             currentPosition = options.Length - 1;
-        else if (currentPosition > options.Length -1)
+        else if (currentPosition > options.Length - 1)
             currentPosition = 0;
 
-        if (currentPosition == 3 && options[currentPosition].tag =="BackToMenu" )
-        {
-            rect.position = new Vector3(options[currentPosition].position.x - 370, options[currentPosition].position.y +30, 0);
-        }
-        else
-            rect.position = new Vector3(options[currentPosition].position.x  - 280, options[currentPosition].position.y +30, 0);
+        rect.position = new Vector3(arrowPositions[currentPosition].position.x , arrowPositions[currentPosition].position.y  , 0);
     }
 
 }

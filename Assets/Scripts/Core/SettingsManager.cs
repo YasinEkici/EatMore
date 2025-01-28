@@ -7,6 +7,7 @@ public class SettingsManager : MonoBehaviour
 {
     [SerializeField] private RectTransform arrow;
     [SerializeField] private RectTransform[] buttons;
+    [SerializeField] private RectTransform[] arrowPositions;
     [SerializeField] private AudioClip changeSound;
     [SerializeField] private AudioClip interactSound;
     [SerializeField] private GameObject optionsScreen;
@@ -45,7 +46,7 @@ public class SettingsManager : MonoBehaviour
     }
     private void AssignPosition(int _position)
     {
-        arrow.position = new Vector3(arrow.position.x, buttons[_position].position.y+30, 0);
+        arrow.position = new Vector3(arrowPositions[_position].position.x, arrowPositions[_position].position.y, 0);
     }
     private void Interact()
     {
@@ -53,15 +54,7 @@ public class SettingsManager : MonoBehaviour
 
         SoundManager.instance.PlaySound(interactSound);
 
-        /*if (currentPosition == 0)//sound
-        {
-            //Start game
-            SoundVolume();
-        }
-        else if (currentPosition == 1)//music
-        {
-            MusicVolume();
-        }*/
+    
         if (currentPosition == 2)//exit
             Exit();
     }
