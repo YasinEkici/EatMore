@@ -13,7 +13,7 @@ public class MenuManager : MonoBehaviour
     private int currentPosition;
 
     
-    private void Awake()
+    private void Start()
     {
         ChangePosition(0);
     }
