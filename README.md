@@ -1,11 +1,11 @@
-# EatMore!
+# 🍒 EatMore!
 **EatMore!** is a survival game where players must strategically interact with their environment to stay alive. 
 The gameplay revolves around managing health, using portals and surviving all in a fast-paced, WebGL application.
 
 **Playable Game: https://enesevki.itch.io/eat-more**
 **We recommend playing the game in full screen for a better experience.**
 
-## How to Play
+## 🎮 How to Play
 1. Move: Use WASD or Arrow Keys to navigate.
 2. Dash: Press Left Shift to quickly evade or reposition.
 3. Interact: Collect cherries, speed gems, avoid vultures and use portals to survive and maximize your score.
@@ -15,20 +15,17 @@ The gameplay revolves around managing health, using portals and surviving all in
 2. Health Mechanics: Your health decreases over time and vulture attacks drains it further. Collect health baits to recover. 
 3. Portals: Teleport across the map to escape tricky situations and reposition strategically.
 4. Different Objects: The different objects have different effects on player:
-   1. Cherries: Heals the Player upon collecting.
-   2. Vultures: Damages the Player upon inteacting.
-   3. Speed Gems: Provides movement speed for a time upon collecting.
+   1. 🍒 Cherries: Heals the Player upon collecting.
+   2. 🦅 Vultures: Damages the Player upon inteacting.
+   3. 💎 Speed Gems: Provides movement speed for a time upon collecting.
 5. Asynchronization: After getting score up to 10, game transfers player into second level and continues. (For playtesting, you can press "F" to switch from scene 1 to scene 2)
 
-## Task Distribution
-### Enes Şevki Dönmez - 21360859079
-1. Main Menu (30x)
-2. Pause Screen (20x)
-3. Asynchronization (10x)
 
-### Yasin Ekici - 21360859029
-1. Animations (30x)
-2. Sound and Music Design (30x)
+## 📋 Task Distribution
+| Contributor              | Student ID   | Tasks                              			       | Effort (x) |
+|--------------------------|--------------|------------------------------------------------------------|------------|
+| **Enes Şevki Dönmez**    | 21360859079  | Main Menu (30x), Pause Screen(20x), Asynchronization (10x) | 60x        |
+| **Yasin Ekici**          | 21360859029  | Animations (30x), Sound and Music Design (30x)	       | 60x        |
    
 ## References
 
