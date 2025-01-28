@@ -29,11 +29,11 @@ public class MenuManager : MonoBehaviour
 
     }
 
-    public void ChangePosition(int _change)
+    public void ChangePosition(int change)
     {
-        currentPosition += _change;
+        currentPosition += change;
 
-        if (_change != 0)
+        if (change != 0)
             SoundManager.instance.PlaySound(changeSound); 
 
         if (currentPosition < 0)
@@ -43,14 +43,9 @@ public class MenuManager : MonoBehaviour
 
         AssignPosition(currentPosition);
     }
-    private void AssignPosition(int _position)
+    private void AssignPosition(int position)
     {
-        if(_position == 1)
-        {
-            arrow.position = new Vector3(buttons[_position].position.x - 270, buttons[_position].position.y + 30, 0);
-        }
-        else
-            arrow.position = new Vector3(buttons[_position].position.x -200, buttons[_position].position.y + 30, 0);
+            arrow.position = new Vector3(buttons[position].position.x -180, buttons[position].position.y + 30, 0);
     }
     private void Interact()
     {
